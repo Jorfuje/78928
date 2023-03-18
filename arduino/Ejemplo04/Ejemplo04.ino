@@ -1,6 +1,6 @@
 #include <WiFi.h>
 #include <ESPAsyncWebSrv.h>
-const char* ssid = "POCO-x3";
+const char* ssid = "POCO-X3";
 const char* password = "samantha";
 AsyncWebServer server(80);
 
@@ -11,7 +11,8 @@ void setup() {
   server.on("/on", HTTP_GET, [](AsyncWebServerRequest* request){
     int numParametros = request -> params();
     Serial.println(numParametros);
-    digitalWrite(2, LOW);    // turn the LED off by making the voltage LOW
+    digitalWrite(2, HIGH);   // turn the LED on (HIGH is the voltage level)
+    //digitalWrite(2, LOW);    // turn the LED off by making the voltage LOW
   delay(1000); 
     if(numParametros == 0){
       request ->send(200, "text/html","<h1>Hola Mundo</h1>");
@@ -24,7 +25,8 @@ void setup() {
 });
   server.on("/of",HTTP_GET, [](AsyncWebServerRequest* request){
     request->send(200,"text/html","<h1>adios</h1>");
-    digitalWrite(2, HIGH);   // turn the LED on (HIGH is the voltage level)
+    digitalWrite(2, LOW);    // turn the LED off by making the voltage LOW
+    //digitalWrite(2, HIGH);   // turn the LED on (HIGH is the voltage level)
   delay(1000); 
     
   });
