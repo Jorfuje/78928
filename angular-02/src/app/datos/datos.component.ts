@@ -8,9 +8,14 @@ import { DataService } from '../data.service';
 })
 export class DatosComponent {
 
+  items: any[] = [];
+
   constructor (private ds:DataService){}
 
   ngOnInit(){
-    this.ds.salvar(["estatico"]);
+    this.ds.mostrarSaludador().subscribe ( datos => {
+      this.items = datos;
+      console.log('d'+datos);
+    });
   }
 }
