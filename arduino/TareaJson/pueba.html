@@ -1,0 +1,78 @@
+<!--
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/">
+    <title>Document</title>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+    <head>
+
+    <body>
+
+        <div class="container my-3">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="table-responsive">
+                        <table class="table table-dark">
+                            <thead>
+                                <tr>
+                                    <th class="centered">Estado</th>
+                                    <th class="centered">Temperatura</th>
+                                    <th class="centered">Humedad</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody_Users"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="./js/index.js"></script>
+
+    </body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+</head>
+<body>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <button type="button" class="btn btn-primary" id="boton">Consultar</button>
+        </div>
+        <div class="col-10">
+          <table class="table" id="tabla">
+              <thead>
+                <tr>
+                  <th>estado</th>
+                  <th>humedad</th>
+                  <th>temperaturaC</th>
+                  <th>temperaturaF</th>
+                  <th>indiceCalorC</th>
+                  <th>indiceCalorF</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+</body>
+</html>
