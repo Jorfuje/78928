@@ -13,8 +13,8 @@ void setup()
 void loop()
 {
   delay(dht.getMinimumSamplingPeriod());
-  float humedad =  dht.getHumidity();
-  float temperatura = dht.getTemperature();                            
+  float humedad =  30.2;
+  float temperatura = 10.5;                            
   if (isnan(humedad) || isnan(temperatura)){
     Serial.println("No se pudo leer sensor DHT!");
     return;
