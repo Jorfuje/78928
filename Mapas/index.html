@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+        integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <style>
+        #map {
+            height: 180px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="map"></div>
+
+    <form id="formulario">
+        <input id="inputLat" type="text">
+        <input id="inputLog" type="text">
+        <button type="submit" value="Enviar" id="submit">Enviar</button>
+    </form>
+
+
+
+
+    <script>
+
+        window.addEventListener("load", function () {
+            console.log("DOM cargado");
+            var form = this.document.getElementById("formulario")
+            form.addEventListener("submit", () => {
+                event.preventDefault();
+                var latitud = this.document.querySelector("#inputLat").value;
+                var longitud = this.document.querySelector("#inputLog").value;
+                console.log("La latitud es: " + latitud);
+                console.log("La longitud es: " + longitud);
+
+                var marker = L.marker([latitud, longitud]).addTo(map);
+                marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+
+            })
+        });
+
+
+
+        var map = L.map('map').setView([19.551977, -96.931456], 13);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        //var marker = L.marker([latitud, longitud]).addTo(map);
+
+        //marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+
+        var popup = L.popup();
+
+        function onMapClick(e) {
+            popup
+                .setLatLng(e.latlng)
+                .setContent("You clicked the map at " + e.latlng.toString())
+                .openOn(map);
+        }
+
+        map.on('click', onMapClick);
+
+        document.getElementById("myBtn").onclick = function () { myFunction() };
+
+        function enviarCoordenadas() {
+            latitud = document.getElementById("inputLat");
+            longitud = document.getElementById("inputLog");
+        }
+
+    </script>
+
+
+
+
+
+</body>
+
+</html>
