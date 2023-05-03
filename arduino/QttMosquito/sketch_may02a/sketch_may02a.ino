@@ -99,7 +99,7 @@ void reconnect() {
     if (client.connect(clientId.c_str())) {
       Serial.println("connected");
       // Once connected, publish an announcement...
-      client.publish("fei/cc1/temperatura", "temperatura");
+      client.publish("/temperatura", "temperatura");
       // ... and resubscribe
       client.subscribe("inTopic");
     } else {
@@ -129,7 +129,7 @@ void loop() {
   }
   client.loop();
 
-  delay(dht.getMinimumSamplingPeriod());
+  /*delay(dht.getMinimumSamplingPeriod());
 
   float temperatura = 20.6;  //dht.getTemperature();
   float humedad = 26.7;      //dht.getHumidity();
@@ -172,15 +172,26 @@ void loop() {
   } else {
     Serial.println("Error sending message");
   }
-  delay(10000);
+  delay(10000);*/
+
+  float temperatura = 20.6;
 
   unsigned long now = millis();
-  if (now - lastMsg > 2000) {
+  if (now - lastMsg > 10000) {
     lastMsg = now;
-    ++value;
-    snprintf(msg, MSG_BUFFER_SIZE, "En el cc1 #%ld", value);
-    Serial.print("Publish message: ");
-    Serial.println(msg);
-    client.publish("fei/cc1/temperatura/jorge",JSONmessageBuffer);
+    value = 19.551977 + 0.000015;
+
+    
+    //snprintf(msg, MSG_BUFFER_SIZE, "En el cc1 #%ld", value);
+    //Serial.print("Publish message: ");
+    //Serial.println(msg);
+
+    char respuesta[250];
+    DynamicJsonDocument json(1024);
+    json["c1"]=19.55197714173313;
+    json["c2"]=-96.93145641670577;
+    json["temperatura"]=temperatura;
+    serializeJson(json, respuesta);
+    client.publish("/temperatura",respuesta);
   }
 }
