@@ -1,5 +1,5 @@
 // Create a client instance
-client = new Paho.MQTT.Client("192.168.100.7", 9001, "jor");
+client = new Paho.MQTT.Client("192.168.100.7", 9001, "Jorge A");
 
 // set callback handlers
 client.onConnectionLost = onConnectionLost;
@@ -30,3 +30,4 @@ function onConnectionLost(responseObject) {
 function onMessageArrived(message) {
   console.log("onMessageArrived:"+message.payloadString);
 }
+

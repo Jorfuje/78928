@@ -26,7 +26,7 @@ auxBoton.addEventListener('click', (e) => {
 })
 
 function consultar(){
-    fetch('http://192.168.100.9')
+    fetch('192.168.100.9')
     .then(res => res.json())
     .then(data => {
         addRow(data)

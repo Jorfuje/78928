@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+        integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <style>
+        #map {
+            height: 180px;
+        }
+    </style>
+</head>
+
+<body>
+    <p>Ejemplo de mqtt</p>
+    <div id="map"></div>
+    <form id="formulario">
+        <input id="inputLat" type="text">
+        <input id="inputLog" type="text">
+        <button type="submit" value="Enviar" id="submit">Enviar</button>
+    </form>
+
+
+    <script>
+
+        // Create a client instance
+        client = new Paho.MQTT.Client("192.168.100.7", 9001, "Jorge A");
+
+        // set callback handlers
+        client.onConnectionLost = onConnectionLost;
+        client.onMessageArrived = onMessageArrived;
+
+        // connect the client
+        client.connect({ onSuccess: onConnect });
+
+
+        // called when the client connects
+        function onConnect() {
+            // Once a connection has been made, make a subscription and send a message.
+            console.log("onConnect");
+            client.subscribe("World");
+            message = new Paho.MQTT.Message("Hello");
+            message.destinationName = "World";
+            client.send(message);
+        }
+
+        // called when the client loses its connection
+        function onConnectionLost(responseObject) {
+            if (responseObject.errorCode !== 0) {
+                console.log("onConnectionLost:" + responseObject.errorMessage);
+            }
+        }
+
+        // called when a message arrives
+        function onMessageArrived(message) {
+            console.log("onMessageArrived:" + message.payloadString);
+            console.log()
+
+        }
+
+
+    
+
+
+        window.addEventListener("load", function () {
+            console.log("DOM cargado");
+            var form = this.document.getElementById("formulario")
+            form.addEventListener("submit", () => {
+                event.preventDefault();
+                var latitud = this.document.querySelector("#inputLat").value;
+                var longitud = this.document.querySelector("#inputLog").value;
+                console.log("La latitud es: " + latitud);
+                console.log("La longitud es: " + longitud);
+             
+
+                var marker = L.marker([latitud, longitud]).addTo(map);
+                marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+
+            })
+        });
+
+
+
+        var map = L.map('map').setView([19.551977, -96.931456], 13);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        //var marker = L.marker([latitud, longitud]).addTo(map);
+
+        //marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+
+        var popup = L.popup();
+
+        function onMapClick(e) {
+            popup
+                .setLatLng(e.latlng)
+                .setContent("You clicked the map at " + e.latlng.toString())
+                .openOn(map);
+        }
+
+        map.on('click', onMapClick);
+
+        document.getElementById("myBtn").onclick = function () { myFunction() };
+
+        function enviarCoordenadas() {
+            latitud = document.getElementById("inputLat");
+            longitud = document.getElementById("inputLog");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
